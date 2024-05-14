@@ -70,11 +70,17 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 extra_ota_keys := $(addsuffix .x509.pem,$(PRODUCT_EXTRA_OTA_KEYS))
 
-$(LOCAL_BUILT_MODULE): PRIVATE_CERT := $(DEFAULT_SYSTEM_DEV_CERTIFICATE).x509.pem
+ifneq (,$(wildcard user-keys/releasekey.x509.pem))
+DEFAULT_OTA_CERTIFICATE := user-keys/releasekey
+else
+DEFAULT_OTA_CERTIFICATE := $(DEFAULT_SYSTEM_DEV_CERTIFICATE)
+endif
+
+$(LOCAL_BUILT_MODULE): PRIVATE_CERT := $(DEFAULT_OTA_CERTIFICATE).x509.pem
 $(LOCAL_BUILT_MODULE): PRIVATE_EXTRA_OTA_KEYS := $(extra_ota_keys)
 $(LOCAL_BUILT_MODULE): \
 	    $(SOONG_ZIP) \
-	    $(DEFAULT_SYSTEM_DEV_CERTIFICATE).x509.pem \
+	    $(DEFAULT_OTA_CERTIFICATE).x509.pem \
 	    $(extra_ota_keys)
 	$(SOONG_ZIP) -o $@ -j -symlinks=false \
 	    $(addprefix -f ,$(PRIVATE_CERT) $(PRIVATE_EXTRA_OTA_KEYS))
@@ -95,11 +101,17 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 extra_recovery_keys := $(addsuffix .x509.pem,$(PRODUCT_EXTRA_RECOVERY_KEYS))
 
-$(LOCAL_BUILT_MODULE): PRIVATE_CERT := $(DEFAULT_SYSTEM_DEV_CERTIFICATE).x509.pem
+ifneq (,$(wildcard user-keys/releasekey.x509.pem))
+DEFAULT_OTA_CERTIFICATE := user-keys/releasekey
+else
+DEFAULT_OTA_CERTIFICATE := $(DEFAULT_SYSTEM_DEV_CERTIFICATE)
+endif
+
+$(LOCAL_BUILT_MODULE): PRIVATE_CERT := $(DEFAULT_OTA_CERTIFICATE).x509.pem
 $(LOCAL_BUILT_MODULE): PRIVATE_EXTRA_RECOVERY_KEYS := $(extra_recovery_keys)
 $(LOCAL_BUILT_MODULE): \
 	    $(SOONG_ZIP) \
-	    $(DEFAULT_SYSTEM_DEV_CERTIFICATE).x509.pem \
+	    $(DEFAULT_OTA_CERTIFICATE).x509.pem \
 	    $(extra_recovery_keys)
 	$(SOONG_ZIP) -o $@ -j -symlinks=false \
 	    $(addprefix -f ,$(PRIVATE_CERT) $(PRIVATE_EXTRA_RECOVERY_KEYS))
