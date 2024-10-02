@@ -13,7 +13,7 @@ def ExtractFingerprint(cert):
     return proc.stdout.decode('utf-8').split('=')[1].replace(':', '')
 
 def patch_trichrome(infilename, sign_key):
-    orig_certdigest = "32a2fc74d731105859e5a85df16d95f102d85b22099b8064c5d8915c61dad1e0"
+    orig_certdigest = "c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8"
     new_certdigest = ExtractFingerprint(sign_key).lower().rstrip()
 
     with zipfile.ZipFile(infilename, 'r') as zin, zipfile.ZipFile(infilename + ".patched", 'w') as zout:
