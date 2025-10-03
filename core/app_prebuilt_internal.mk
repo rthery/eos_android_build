@@ -250,7 +250,6 @@ ifeq ($(module_run_appcompat),true)
 	$(call appcompat-header, aapt2)
 	$(run-appcompat)
 endif  # module_run_appcompat
-	$(patch-trichrome)
 	$(sign-package)
 	# No need for align-package because sign-package takes care of alignment
 else  # LOCAL_CERTIFICATE == PRESIGNED
