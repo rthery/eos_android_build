@@ -30,6 +30,8 @@ import os
 import os.path
 import re
 import shutil
+
+shutil._copyxattr = lambda *args, **kwargs: None
 import sys
 
 import common
