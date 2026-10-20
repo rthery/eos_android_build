@@ -624,12 +624,15 @@ def ProcessTargetFiles(input_tf_zip, output_tf_zip, misc_info,
 
     # Ask add_img_to_target_files to rebuild the recovery patch if needed.
     elif filename in ("SYSTEM/recovery-from-boot.p",
+                      "SYSTEM/vendor/recovery-from-boot.p",
                       "VENDOR/recovery-from-boot.p",
 
                       "SYSTEM/etc/recovery.img",
+                      "SYSTEM/vendor/etc/recovery.img",
                       "VENDOR/etc/recovery.img",
 
                       "SYSTEM/bin/install-recovery.sh",
+                      "SYSTEM/vendor/bin/install-recovery.sh",
                       "VENDOR/bin/install-recovery.sh"):
       OPTIONS.rebuild_recovery = True
 

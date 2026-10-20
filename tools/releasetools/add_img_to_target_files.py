@@ -121,12 +121,12 @@ def AddSystem(output_zip, recovery_img=None, boot_img=None):
     return img.name
 
   def output_sink(fn, data):
-    output_file = os.path.join(OPTIONS.input_tmp, "SYSTEM", fn)
+    output_file = os.path.join(OPTIONS.input_tmp, "SYSTEM", "vendor", fn)
     with open(output_file, "wb") as ofile:
       ofile.write(data)
 
     if output_zip:
-      arc_name = "SYSTEM/" + fn
+      arc_name = "SYSTEM/vendor/" + fn
       if arc_name in output_zip.namelist():
         OPTIONS.replace_updated_files_list.append(arc_name)
       else:
